@@ -4,15 +4,35 @@ const INSTALLABLE = true;
 const SECURE = true;
 
 if ('serviceWorker' in navigator && INSTALLABLE) {
-    window.addEventListener('load', async () => {
-        try {
-            const registration = await navigator.serviceWorker.register('/service-worker.js');
-            console.log('Service Worker registrado en scope:', registration.scope);
-        } catch (err) {
-            console.log('ERROR al registrar Service Worker:', err);
-        }
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }, function(err) {
+            console.log('Service Worker registration failed:', err);
+        });
     });
 }
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installButton.style.display = 'block';
+    
+    installButton.addEventListener('click', () => {
+        installButton.style.display = 'none';
+        deferredPrompt.prompt();
+        
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Instalación aceptada');
+            } else {
+                console.log('Instalación cancelada');
+            }
+            
+            deferredPrompt = null;
+        });
+    });
+});
 
 let ovenTimeout;
 let brokerConnected = false;

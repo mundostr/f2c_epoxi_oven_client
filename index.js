@@ -1,6 +1,7 @@
 // https://www.emqx.com/en/blog/mqtt-js-tutorial
 
 const INSTALLABLE = true;
+const SECURE = true;
 
 if ('serviceWorker' in navigator && INSTALLABLE) {
     window.addEventListener('load', async () => {
@@ -17,7 +18,7 @@ let ovenTimeout;
 let brokerConnected = false;
 let ovenResponding = false;
 
-const brokerUrl = "ws://broker.emqx.io:8083/mqtt";
+const brokerUrl = SECURE ? "wss://broker.emqx.io:8084/mqtt": "ws://broker.emqx.io:8083/mqtt";
 const topic = "iduxnet/epoxi2/temperature";
 const clientId = "hornoepoxi_web_" + Math.random().toString(16).slice(2);
 const client = mqtt.connect(brokerUrl, { clientId: clientId, keepalive: 30 });

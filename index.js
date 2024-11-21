@@ -1,7 +1,23 @@
 // https://www.emqx.com/en/blog/mqtt-js-tutorial
 
-const INSTALLABLE = true;
+let ovenTimeout;
+let brokerConnected = false;
+let ovenResponding = false;
+
 const SECURE = true;
+const INSTALLABLE = true;
+const brokerUrl = SECURE ? "wss://broker.emqx.io:8084/mqtt": "ws://broker.emqx.io:8083/mqtt";
+const topic = "iduxnet/epoxi2/temperature";
+const clientId = "hornoepoxi_web_" + Math.random().toString(16).slice(2);
+const client = mqtt.connect(brokerUrl, { clientId: clientId, keepalive: 30 });
+
+const installButton = document.getElementById('install-button');
+const statusElement = document.getElementById("status");
+const controlForm = document.getElementById("ovenControlForm");
+const liveToastDiv = document.getElementById("liveToast");
+const liveToast = bootstrap.Toast.getOrCreateInstance(liveToastDiv);
+const setButton = document.getElementById("setButton");
+const ctx = document.getElementById("temperatureChart").getContext("2d");
 
 if ('serviceWorker' in navigator && INSTALLABLE) {
     window.addEventListener('load', function() {
@@ -34,23 +50,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
     });
 });
 
-let ovenTimeout;
-let brokerConnected = false;
-let ovenResponding = false;
-
-const brokerUrl = SECURE ? "wss://broker.emqx.io:8084/mqtt": "ws://broker.emqx.io:8083/mqtt";
-const topic = "iduxnet/epoxi2/temperature";
-const clientId = "hornoepoxi_web_" + Math.random().toString(16).slice(2);
-const client = mqtt.connect(brokerUrl, { clientId: clientId, keepalive: 30 });
-
-const installButton = document.getElementById('install-button');
-const statusElement = document.getElementById("status");
-const controlForm = document.getElementById("ovenControlForm");
-const liveToastDiv = document.getElementById("liveToast");
-const liveToast = bootstrap.Toast.getOrCreateInstance(liveToastDiv);
-const setButton = document.getElementById("setButton");
-
-const ctx = document.getElementById("temperatureChart").getContext("2d");
 const temperatureChart = new Chart(ctx, {
     type: "line",
     data: {

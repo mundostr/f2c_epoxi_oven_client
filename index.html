@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horno Epoxi II</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="container-fluid p-4">
+        <div class="row">
+            <h1><b>Horno Epoxi II</b></h1>
+            
+            <p class="info">
+                <span id="ovenState">Estado</span> |
+                <span id="ovenTarget">Setpoint</span> |
+                <span id="ovenTimer">Timer</span> |
+                <span id="ovenElapsed">Resta</span> |
+                <span id="ovenPip">P</span> |
+                <span id="ovenPii">I</span> |
+                <span id="ovenPid">D</span>
+            </p>
+        </div>
+
+        <div class="row">
+            <form id="ovenControlForm" class="row row-cols-lg-auto g-3">
+                <select id="configOption" class="form-select" aria-label="Settings" style="width: 100px; margin-left: 1em; margin-right: 1em;">
+                    <option value="STA" selected>Estado</option>
+                    <option value="SET">Setpoint</option>
+                    <option value="DUR">Timer</option>
+                    <option value="PIP">PID (Kp)</option>
+                    <option value="PII">PID (Ki)</option>
+                    <option value="PID">PID (Kd)</option>
+                </select>
+
+                <input class="form-control" type="text" id="configValue" style="width: 64px; margin-right: 1em;">
+                      
+                <button id="setButton" type="submit" class="btn btn-success" style="width: 100px;">Setear</button>
+            </form>
+        </div>
+        
+        <div class="row">
+            <button id="status" class="btn btn-warning" style="width: 100%;" disabled>Conectando al broker</button>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <p id="currentTemp">0</p>
+            </div>
+
+            <div class="col-12 col-md-9">
+                <canvas id="temperatureChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Horno Epoxi II</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            
+            <div class="toast-body" id="liveToastBody" style="background-color: #333;"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

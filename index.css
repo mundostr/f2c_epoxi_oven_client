@@ -1,0 +1,38 @@
+body {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    text-align: left;
+    color: #fff;
+    background-color: #333;
+}
+
+canvas {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#status {
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+.info {
+    font-size: 200%;
+    margin-top: 1em;
+    font-weight: bold;
+    text-align: left;
+}
+
+#currentTemp {
+    font-size: 10em;
+    font-weight: bold;
+    text-align: center;
+}
+
+#temperatureChart {
+    margin-top: 2em;
+    max-height: 400px;
+}
+
+.set-field {
+    width: 120px;
+}

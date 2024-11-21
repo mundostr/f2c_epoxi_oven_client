@@ -43,6 +43,7 @@ const topic = "iduxnet/epoxi2/temperature";
 const clientId = "hornoepoxi_web_" + Math.random().toString(16).slice(2);
 const client = mqtt.connect(brokerUrl, { clientId: clientId, keepalive: 30 });
 
+const installButton = document.getElementById('install-button');
 const statusElement = document.getElementById("status");
 const controlForm = document.getElementById("ovenControlForm");
 const liveToastDiv = document.getElementById("liveToast");

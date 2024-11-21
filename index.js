@@ -1,5 +1,7 @@
 // https://www.emqx.com/en/blog/mqtt-js-tutorial
 
+const INSTALLABLE = true;
+
 if ('serviceWorker' in navigator && INSTALLABLE) {
     window.addEventListener('load', async () => {
         try {
